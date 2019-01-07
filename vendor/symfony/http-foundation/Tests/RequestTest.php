@@ -492,18 +492,18 @@ class RequestTest extends TestCase
         $server['SERVER_PORT'] = '8080';
 
         $server['QUERY_STRING'] = 'query=string';
-        $server['REQUEST_URI'] = '/index.php/path/info?query=string';
-        $server['SCRIPT_NAME'] = '/index.php';
+        $server['REQUEST_URI'] = '/IndexController.php/path/info?query=string';
+        $server['SCRIPT_NAME'] = '/IndexController.php';
         $server['PATH_INFO'] = '/path/info';
-        $server['PATH_TRANSLATED'] = 'redirect:/index.php/path/info';
+        $server['PATH_TRANSLATED'] = 'redirect:/IndexController.php/path/info';
         $server['PHP_SELF'] = '/index_dev.php/path/info';
-        $server['SCRIPT_FILENAME'] = '/some/where/index.php';
+        $server['SCRIPT_FILENAME'] = '/some/where/IndexController.php';
 
         $request = new Request();
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('http://host:8080/index.php/path/info?query=string', $request->getUri(), '->getUri() with non default port');
+        $this->assertEquals('http://host:8080/IndexController.php/path/info?query=string', $request->getUri(), '->getUri() with non default port');
 
         // Use std port number
         $server['HTTP_HOST'] = 'host';
@@ -512,7 +512,7 @@ class RequestTest extends TestCase
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('http://host/index.php/path/info?query=string', $request->getUri(), '->getUri() with default port');
+        $this->assertEquals('http://host/IndexController.php/path/info?query=string', $request->getUri(), '->getUri() with default port');
 
         // Without HOST HEADER
         unset($server['HTTP_HOST']);
@@ -521,11 +521,11 @@ class RequestTest extends TestCase
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('http://servername/index.php/path/info?query=string', $request->getUri(), '->getUri() with default port without HOST_HEADER');
+        $this->assertEquals('http://servername/IndexController.php/path/info?query=string', $request->getUri(), '->getUri() with default port without HOST_HEADER');
 
-        // Request with URL REWRITING (hide index.php)
+        // Request with URL REWRITING (hide IndexController.php)
         //   RewriteCond %{REQUEST_FILENAME} !-f
-        //   RewriteRule ^(.*)$ index.php [QSA,L]
+        //   RewriteRule ^(.*)$ IndexController.php [QSA,L]
         // http://host:8080/path/info?query=string
         $server = array();
         $server['HTTP_HOST'] = 'host:8080';
@@ -534,12 +534,12 @@ class RequestTest extends TestCase
 
         $server['REDIRECT_QUERY_STRING'] = 'query=string';
         $server['REDIRECT_URL'] = '/path/info';
-        $server['SCRIPT_NAME'] = '/index.php';
+        $server['SCRIPT_NAME'] = '/IndexController.php';
         $server['QUERY_STRING'] = 'query=string';
         $server['REQUEST_URI'] = '/path/info?toto=test&1=1';
-        $server['SCRIPT_NAME'] = '/index.php';
-        $server['PHP_SELF'] = '/index.php';
-        $server['SCRIPT_FILENAME'] = '/some/where/index.php';
+        $server['SCRIPT_NAME'] = '/IndexController.php';
+        $server['PHP_SELF'] = '/IndexController.php';
+        $server['SCRIPT_FILENAME'] = '/some/where/IndexController.php';
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
         $this->assertEquals('http://host:8080/path/info?query=string', $request->getUri(), '->getUri() with rewrite');
@@ -572,7 +572,7 @@ class RequestTest extends TestCase
             'QUERY_STRING' => 'query=string',
             'REQUEST_URI' => '/ba%20se/index_dev.php/foo%20bar/in+fo?query=string',
             'SCRIPT_NAME' => '/ba se/index_dev.php',
-            'PATH_TRANSLATED' => 'redirect:/index.php/foo bar/in+fo',
+            'PATH_TRANSLATED' => 'redirect:/IndexController.php/foo bar/in+fo',
             'PHP_SELF' => '/ba se/index_dev.php/path/info',
             'SCRIPT_FILENAME' => '/some/where/ba se/index_dev.php',
         );
@@ -619,18 +619,18 @@ class RequestTest extends TestCase
         $server['SERVER_PORT'] = '8080';
 
         $server['QUERY_STRING'] = 'query=string';
-        $server['REQUEST_URI'] = '/index.php/path/info?query=string';
-        $server['SCRIPT_NAME'] = '/index.php';
+        $server['REQUEST_URI'] = '/IndexController.php/path/info?query=string';
+        $server['SCRIPT_NAME'] = '/IndexController.php';
         $server['PATH_INFO'] = '/path/info';
-        $server['PATH_TRANSLATED'] = 'redirect:/index.php/path/info';
+        $server['PATH_TRANSLATED'] = 'redirect:/IndexController.php/path/info';
         $server['PHP_SELF'] = '/index_dev.php/path/info';
-        $server['SCRIPT_FILENAME'] = '/some/where/index.php';
+        $server['SCRIPT_FILENAME'] = '/some/where/IndexController.php';
 
         $request = new Request();
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('http://host:8080/index.php/some/path', $request->getUriForPath('/some/path'), '->getUriForPath() with non default port');
+        $this->assertEquals('http://host:8080/IndexController.php/some/path', $request->getUriForPath('/some/path'), '->getUriForPath() with non default port');
 
         // Use std port number
         $server['HTTP_HOST'] = 'host';
@@ -639,7 +639,7 @@ class RequestTest extends TestCase
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('http://host/index.php/some/path', $request->getUriForPath('/some/path'), '->getUriForPath() with default port');
+        $this->assertEquals('http://host/IndexController.php/some/path', $request->getUriForPath('/some/path'), '->getUriForPath() with default port');
 
         // Without HOST HEADER
         unset($server['HTTP_HOST']);
@@ -648,11 +648,11 @@ class RequestTest extends TestCase
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('http://servername/index.php/some/path', $request->getUriForPath('/some/path'), '->getUriForPath() with default port without HOST_HEADER');
+        $this->assertEquals('http://servername/IndexController.php/some/path', $request->getUriForPath('/some/path'), '->getUriForPath() with default port without HOST_HEADER');
 
-        // Request with URL REWRITING (hide index.php)
+        // Request with URL REWRITING (hide IndexController.php)
         //   RewriteCond %{REQUEST_FILENAME} !-f
-        //   RewriteRule ^(.*)$ index.php [QSA,L]
+        //   RewriteRule ^(.*)$ IndexController.php [QSA,L]
         // http://host:8080/path/info?query=string
         $server = array();
         $server['HTTP_HOST'] = 'host:8080';
@@ -661,12 +661,12 @@ class RequestTest extends TestCase
 
         $server['REDIRECT_QUERY_STRING'] = 'query=string';
         $server['REDIRECT_URL'] = '/path/info';
-        $server['SCRIPT_NAME'] = '/index.php';
+        $server['SCRIPT_NAME'] = '/IndexController.php';
         $server['QUERY_STRING'] = 'query=string';
         $server['REQUEST_URI'] = '/path/info?toto=test&1=1';
-        $server['SCRIPT_NAME'] = '/index.php';
-        $server['PHP_SELF'] = '/index.php';
-        $server['SCRIPT_FILENAME'] = '/some/where/index.php';
+        $server['SCRIPT_NAME'] = '/IndexController.php';
+        $server['PHP_SELF'] = '/IndexController.php';
+        $server['SCRIPT_FILENAME'] = '/some/where/IndexController.php';
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
         $this->assertEquals('http://host:8080/some/path', $request->getUriForPath('/some/path'), '->getUri() with rewrite');
@@ -1335,11 +1335,11 @@ class RequestTest extends TestCase
         $this->assertEquals('', $request->getScriptName());
 
         $server = array();
-        $server['SCRIPT_NAME'] = '/index.php';
+        $server['SCRIPT_NAME'] = '/IndexController.php';
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('/index.php', $request->getScriptName());
+        $this->assertEquals('/IndexController.php', $request->getScriptName());
 
         $server = array();
         $server['ORIG_SCRIPT_NAME'] = '/frontend.php';
@@ -1348,11 +1348,11 @@ class RequestTest extends TestCase
         $this->assertEquals('/frontend.php', $request->getScriptName());
 
         $server = array();
-        $server['SCRIPT_NAME'] = '/index.php';
+        $server['SCRIPT_NAME'] = '/IndexController.php';
         $server['ORIG_SCRIPT_NAME'] = '/frontend.php';
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('/index.php', $request->getScriptName());
+        $this->assertEquals('/IndexController.php', $request->getScriptName());
     }
 
     public function testGetBasePath()
@@ -1361,27 +1361,27 @@ class RequestTest extends TestCase
         $this->assertEquals('', $request->getBasePath());
 
         $server = array();
-        $server['SCRIPT_FILENAME'] = '/some/where/index.php';
+        $server['SCRIPT_FILENAME'] = '/some/where/IndexController.php';
         $request->initialize(array(), array(), array(), array(), array(), $server);
         $this->assertEquals('', $request->getBasePath());
 
         $server = array();
-        $server['SCRIPT_FILENAME'] = '/some/where/index.php';
-        $server['SCRIPT_NAME'] = '/index.php';
-        $request->initialize(array(), array(), array(), array(), array(), $server);
-
-        $this->assertEquals('', $request->getBasePath());
-
-        $server = array();
-        $server['SCRIPT_FILENAME'] = '/some/where/index.php';
-        $server['PHP_SELF'] = '/index.php';
+        $server['SCRIPT_FILENAME'] = '/some/where/IndexController.php';
+        $server['SCRIPT_NAME'] = '/IndexController.php';
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
         $this->assertEquals('', $request->getBasePath());
 
         $server = array();
-        $server['SCRIPT_FILENAME'] = '/some/where/index.php';
-        $server['ORIG_SCRIPT_NAME'] = '/index.php';
+        $server['SCRIPT_FILENAME'] = '/some/where/IndexController.php';
+        $server['PHP_SELF'] = '/IndexController.php';
+        $request->initialize(array(), array(), array(), array(), array(), $server);
+
+        $this->assertEquals('', $request->getBasePath());
+
+        $server = array();
+        $server['SCRIPT_FILENAME'] = '/some/where/IndexController.php';
+        $server['ORIG_SCRIPT_NAME'] = '/IndexController.php';
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
         $this->assertEquals('', $request->getBasePath());
@@ -1675,9 +1675,9 @@ class RequestTest extends TestCase
             array(
                 '/fruit/strawberry/1234index.php/blah',
                 array(
-                    'SCRIPT_FILENAME' => 'E:/Sites/cc-new/public_html/fruit/index.php',
-                    'SCRIPT_NAME' => '/fruit/index.php',
-                    'PHP_SELF' => '/fruit/index.php',
+                    'SCRIPT_FILENAME' => 'E:/Sites/cc-new/public_html/fruit/IndexController.php',
+                    'SCRIPT_NAME' => '/fruit/IndexController.php',
+                    'PHP_SELF' => '/fruit/IndexController.php',
                 ),
                 '/fruit',
                 '/strawberry/1234index.php/blah',
@@ -1685,9 +1685,9 @@ class RequestTest extends TestCase
             array(
                 '/fruit/strawberry/1234index.php/blah',
                 array(
-                    'SCRIPT_FILENAME' => 'E:/Sites/cc-new/public_html/index.php',
-                    'SCRIPT_NAME' => '/index.php',
-                    'PHP_SELF' => '/index.php',
+                    'SCRIPT_FILENAME' => 'E:/Sites/cc-new/public_html/IndexController.php',
+                    'SCRIPT_NAME' => '/IndexController.php',
+                    'PHP_SELF' => '/IndexController.php',
                 ),
                 '',
                 '/fruit/strawberry/1234index.php/blah',

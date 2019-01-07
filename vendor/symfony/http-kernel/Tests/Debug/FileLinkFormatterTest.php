@@ -55,9 +55,9 @@ class FileLinkFormatterTest extends TestCase
 
         $request->server->set('SERVER_NAME', 'www.example.org');
         $request->server->set('SERVER_PORT', 80);
-        $request->server->set('SCRIPT_NAME', '/index.php');
-        $request->server->set('SCRIPT_FILENAME', '/public/index.php');
-        $request->server->set('REQUEST_URI', '/index.php/example');
+        $request->server->set('SCRIPT_NAME', '/IndexController.php');
+        $request->server->set('SCRIPT_FILENAME', '/public/IndexController.php');
+        $request->server->set('REQUEST_URI', '/IndexController.php/example');
 
         $sut = new FileLinkFormatter(null, $requestStack, __DIR__, '/_profiler/open?file=%f&line=%l#line%l');
 
