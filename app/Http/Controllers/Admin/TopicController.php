@@ -1,6 +1,6 @@
 <?php
 /**
- * 后台话题控制器
+ * 后台话题控制器（社区广场）
  * Date: 2019/1/7
  * Time: 18:08
  */
@@ -8,14 +8,17 @@
 namespace App\Http\Controllers\Admin;
 
 use Response;
-use Request;
+//use Request;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Topic as TopicModel;
 
 class TopicController extends Controller
 {
-    public function index(){
+    //列表
+    public function index()
+    {
         $data = TopicModel::find(1);
         //var_dump($data);
 
@@ -26,32 +29,37 @@ class TopicController extends Controller
         ]);
     }
 
-    public function store(Request $request){
-        $this->validate($request, [
-            'name' => 'required|unique:motif,name',
-            'type' => 'required|string|in:' . join(',', array_keys($this->type_dict)),
-            'description' => 'string|min:1|max:240',
-            'cover' => 'url',
-        ], [
-            'type.in' => ':attribute must be in ' . $this->getTypeErrorMessage()
-        ]);
+    //新建
+    public function store()
+    {
+        $rules = [
+            'title' => 'required',
+            'content' => 'required',
+            'cover' => '',
+        ];
 
-        $params = $request->only(['name', 'type', 'description', 'cover']);
-        $type_id = $params['type'];
-        $params['type'] = $this->type_dict[$params['type']];
-        $params['state'] = 'published';
-        $params['user_id'] = $this->uid;
+        $model = new TopicModel();
+        $params = $model->getParams($rules);
 
-        $motif = MotifModel::create($params);
-        $motif->type_id = $type_id;
-
-        // 清除前台接口缓存
-        $this->clearFrontCache('motif', 0, 'entity');
+        $data = $model->create($params);
 
         return Response::json([
             'code' => 0,
-            'data' => $motif,
+            'data' => $data,
         ]);
     }
+
+    //更新
+    public function update($id)
+    {
+        echo 111;
+    }
+
+    //删除
+    public function delete($id)
+    {
+        echo 111;
+    }
+
 
 }

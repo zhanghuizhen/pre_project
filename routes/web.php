@@ -39,10 +39,45 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function(){
         'as' => 'index', 'uses' => 'Index@index'
     ]);
 
+    //话题列表
     Route::get('topic/index', [
         'as' => 'topic/index', 'uses' => 'TopicController@index'
     ]);
 
+    //话题创建
+    Route::post('topic/store', [
+        'as' => 'topic/store', 'uses' => 'TopicController@store'
+    ]);
 
+    //话题更新
+    Route::put('topic/update/{id}', [
+        'as' => 'topic/update/{id}', 'uses' => 'TopicController@update'
+    ]);
+
+    //话题删除
+    Route::delete('topic/delete/{id}', [
+       'as' => 'topic/delete/{id}', 'uses' => 'TopicController@delete'
+    ]);
+
+
+    //公告列表
+    Route::get('announcement/index', [
+        'as' => 'announcement/index', 'uses' => 'AnnouncementController@index'
+    ]);
+
+    //公告创建
+    Route::post('announcement/store', [
+        'as' => 'announcement/store', 'uses' => 'AnnouncementController@store'
+    ]);
+
+    //公告更新
+    Route::put('announcement/update/{id}', [
+        'as' => 'announcement/update/{id}', 'uses' => 'AnnouncementController@update'
+    ]);
+
+    //公告删除
+    Route::delete('announcement/delete/{id}', [
+        'as' => 'announcement/delete/{id}', 'uses' => 'AnnouncementController@delete'
+    ]);
 
 });
