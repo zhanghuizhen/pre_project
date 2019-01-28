@@ -1,17 +1,11 @@
 <?php
-/**
- * 后台小区公告
- * Date: 2019/1/8
- * Time: 15:44
- */
 
 namespace App\Http\Controllers\Admin;
 
-use Exception;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class AnnouncementController extends Controller
+class RepairsController extends Controller
 {
     //列表
     public function index(Request $request)
@@ -36,7 +30,5 @@ class AnnouncementController extends Controller
     {
         echo 111;
     }
-
-
 
 }
