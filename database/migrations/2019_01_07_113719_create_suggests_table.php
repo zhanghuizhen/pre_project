@@ -15,6 +15,9 @@ class CreateSuggestsTable extends Migration
     {
         Schema::create('suggests', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('content', '255')->comment('内容');
+            $table->string('type', '56')->comment('意见/建议');
+            $table->string('state', '56')->comment('状态');
             $table->timestamps();
         });
     }
