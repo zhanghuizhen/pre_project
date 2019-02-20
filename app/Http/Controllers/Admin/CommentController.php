@@ -1,4 +1,7 @@
 <?php
+/**
+ * 后台评论控制器
+ */
 
 namespace App\Http\Controllers\Admin;
 

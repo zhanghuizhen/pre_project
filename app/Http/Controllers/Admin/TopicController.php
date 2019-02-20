@@ -17,10 +17,31 @@ use App\Models\Topic as TopicModel;
 class TopicController extends Controller
 {
     //列表
-    public function index()
+    public function index(Request $request)
     {
-        $data = TopicModel::find(1);
-        //var_dump($data);
+        $this->validate($request, [
+            'user_id' => 'integer|min:1',
+            'title' => 'string',
+            'state' => 'string',
+        ]);
+
+        $query = TopicModel::get();
+
+        if ($request->has('user_id')) {
+            $query->where('user_id', $request->get('user_id'));
+        }
+
+        if ($request->has('title')) {
+            $query->where('title', 'like', '%' . $request->get('title') . '%');
+        }
+
+        if ($request->has('title')) {
+            $query->where('state', $request->get('title'));
+        }
+
+
+
+
 
 
         return Response::json([
