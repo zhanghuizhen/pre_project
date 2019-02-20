@@ -21,6 +21,7 @@ class CreateRepairsTable extends Migration
             $table->string('is_finished', '56')->comment('是否完成');
             $table->string('address', '255')->comment('地址');
             $table->string('name', '56')->comment('用户名');
+            $table->integer('user_id')->comment('创建人ID');
             $table->timestamps();
         });
     }

@@ -25,7 +25,7 @@ class TopicController extends Controller
             'state' => 'string',
         ]);
 
-        $query = TopicModel::get();
+        $query = TopicModel::with('users');
 
         if ($request->has('user_id')) {
             $query->where('user_id', $request->get('user_id'));
@@ -39,10 +39,8 @@ class TopicController extends Controller
             $query->where('state', $request->get('title'));
         }
 
-
-
-
-
+        $per_page = $request->get('per_page', $this->defaultRerPage());
+        $data = $query->paginate($per_page);
 
         return Response::json([
             'code' => 0,
@@ -51,22 +49,20 @@ class TopicController extends Controller
     }
 
     //新建
-    public function store()
+    public function store(Request $request)
     {
-        $rules = [
-            'title' => 'required',
-            'content' => 'required',
-            'cover' => '',
-        ];
+        $this->validate($request, [
+            'title' => 'string',
+            'content' => 'string',
+        ]);
 
-        $model = new TopicModel();
-        $params = $model->getParams($rules);
-
-        $data = $model->create($params);
+        $params = $request->only(['title', 'content']);
+        $params['state'] = 'published';
+        $topic = TopicModel::create($params);
 
         return Response::json([
             'code' => 0,
-            'data' => $data,
+            'data' => $topic,
         ]);
     }
 

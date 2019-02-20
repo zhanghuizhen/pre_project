@@ -18,6 +18,7 @@ class CreateAnnouncementsTable extends Migration
             $table->string('title', '56')->comment('标题');
             $table->string('content', '255')->comment('内容');
             $table->string('state', '56')->comment('状态');
+            $table->integer('user_id')->comment('创建人ID');
             $table->timestamps();
         });
     }

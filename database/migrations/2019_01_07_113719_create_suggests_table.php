@@ -18,6 +18,7 @@ class CreateSuggestsTable extends Migration
             $table->string('content', '255')->comment('内容');
             $table->string('type', '56')->comment('意见/建议');
             $table->string('state', '56')->comment('状态');
+            $table->integer('user_id')->comment('创建人ID');
             $table->timestamps();
         });
     }
