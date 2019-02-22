@@ -42,9 +42,31 @@ trait ValidatesRequests
     public function validate(Request $request, array $rules,
                              array $messages = [], array $customAttributes = [])
     {
-        return $this->getValidationFactory()->make(
-            $request->all(), $rules, $messages, $customAttributes
-        )->validate();
+//        return $this->getValidationFactory()->make(
+//            $request->all(), $rules, $messages, $customAttributes
+//        )->validate();
+
+        $validator = $this->getValidationFactory()->make($request->all(), $rules, $messages, $customAttributes);
+
+        if ($validator->fails()) {
+            $this->throwValidationException($request, $validator);
+        }
+    }
+
+    /**
+     * Throw the failed validation exception.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Contracts\Validation\Validator  $validator
+     * @return void
+     *
+     * @throws \Illuminate\Foundation\Validation\ValidationException
+     */
+    protected function throwValidationException(Request $request, $validator)
+    {
+        throw new ValidationException($validator, $this->buildFailedValidationResponse(
+            $request, $this->formatValidationErrors($validator)
+        ));
     }
 
     /**

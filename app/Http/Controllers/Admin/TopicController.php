@@ -52,13 +52,36 @@ class TopicController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'string',
-            'content' => 'string',
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'cover' => '',
         ]);
 
-        $params = $request->only(['title', 'content']);
+        $params = $request->only(['title', 'content', 'cover']);
         $params['state'] = 'published';
         $topic = TopicModel::create($params);
+
+//        $params = [];
+//
+//        $params['title'] = $request->input('title');
+//        $params['content'] = $request->input('content');
+//        $params['cover'] = $request->input('cover');
+//
+//        if (empty($params['title'])) {
+//            throw new \Exception('社区广场标题不能为空');
+//        }
+//
+//        if (empty($params['content'])) {
+//            throw new \Exception('社区广场内容不能为空');
+//        }
+//
+//        if (empty($params['cover'])) {
+//            throw new \Exception('社区广场图片不能为空');
+//        }
+//
+//        $params['state'] = 'published';
+//
+//        $topic = TopicModel::create($params);
 
         return Response::json([
             'code' => 0,
@@ -69,7 +92,7 @@ class TopicController extends Controller
     //更新
     public function update($id)
     {
-        echo 111;
+
     }
 
     //删除

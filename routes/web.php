@@ -35,9 +35,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function(){
     // 控制器在 "App\Http\Controllers\Admin" 命名空间下
 
     //后台index
-    Route::get('/', [
-        'as' => 'index', 'uses' => 'Index@index'
-    ]);
+//    Route::get('/', [
+//        'as' => 'index', 'uses' => 'Index@index'
+//    ]);
 
     //话题列表
     Route::get('topic/index', [
