@@ -59,6 +59,21 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function(){
        'as' => 'topic/delete/{id}', 'uses' => 'TopicController@delete'
     ]);
 
+    //话题删除
+    Route::get('topic/show/{id}', [
+        'as' => 'topic/show/{id}', 'uses' => 'TopicController@show'
+    ]);
+
+    //话题发布
+    Route::put('topic/publish/{id}', [
+        'as' => 'topic/publish/{id}', 'uses' => 'TopicController@publish'
+    ]);
+
+    //话题下线
+    Route::put('topic/offline/{id}', [
+        'as' => 'topic/offline/{id}', 'uses' => 'TopicController@offline'
+    ]);
+
 
     //公告列表
     Route::get('announcement/index', [
