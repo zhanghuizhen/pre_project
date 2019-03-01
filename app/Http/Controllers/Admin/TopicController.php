@@ -8,7 +8,6 @@
 namespace App\Http\Controllers\Admin;
 
 use Response;
-//use Request;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,12 +19,21 @@ class TopicController extends Controller
     public function index(Request $request)
     {
         $this->validate($request, [
-            'user_id' => 'integer|min:1',
+            'id' => 'numeric|min:1',
+            'user_id' => 'numeric|min:1',
             'title' => 'string',
-            'state' => 'string',
+            'content' => 'string',
+            'state' => 'string|in:published,offline',
+            'publish_start_time' => 'date',
+            'publish_end_time' => 'date',
+            'per_page' => 'numeric'
         ]);
 
         $query = TopicModel::with('users');
+
+        if ($request->has('id')) {
+            $query->where('id', $request->get('id'));
+        }
 
         if ($request->has('user_id')) {
             $query->where('user_id', $request->get('user_id'));
@@ -35,8 +43,20 @@ class TopicController extends Controller
             $query->where('title', 'like', '%' . $request->get('title') . '%');
         }
 
-        if ($request->has('title')) {
-            $query->where('state', $request->get('title'));
+        if ($request->has('content')) {
+            $query->where('content', 'like', '%' . $request->get('content') . '%');
+        }
+
+        if ($request->has('state')) {
+            $query->where('state', $request->get('state'));
+        }
+
+        if ($request->has('publish_start_time')) {
+            $query->where('published_at', '>=', 'publush_start_time');
+        }
+
+        if ($request->has('publish_end_time')) {
+            $query->where('published_at', '<=', 'publush_end_time');
         }
 
         $per_page = $request->get('per_page', $this->defaultRerPage());
@@ -54,34 +74,18 @@ class TopicController extends Controller
         $this->validate($request, [
             'title' => 'required|string',
             'content' => 'required|string',
-            'cover' => '',
+            'cover' => 'url',
+        ],[
+            'title.required' => '社区广场标题必填',
+            'title.string' => 'title 应是 string 类型',
+            'content.required' => '社区广场内容必填',
+            'content.string' => 'content 应是 string 类型',
+            'cover.url' => 'cover 应是 url',
         ]);
 
         $params = $request->only(['title', 'content', 'cover']);
         $params['state'] = 'published';
         $topic = TopicModel::create($params);
-
-//        $params = [];
-//
-//        $params['title'] = $request->input('title');
-//        $params['content'] = $request->input('content');
-//        $params['cover'] = $request->input('cover');
-//
-//        if (empty($params['title'])) {
-//            throw new \Exception('社区广场标题不能为空');
-//        }
-//
-//        if (empty($params['content'])) {
-//            throw new \Exception('社区广场内容不能为空');
-//        }
-//
-//        if (empty($params['cover'])) {
-//            throw new \Exception('社区广场图片不能为空');
-//        }
-//
-//        $params['state'] = 'published';
-//
-//        $topic = TopicModel::create($params);
 
         return Response::json([
             'code' => 0,
