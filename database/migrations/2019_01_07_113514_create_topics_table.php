@@ -20,8 +20,12 @@ class CreateTopicsTable extends Migration
             $table->string('cover','255')->comment('图片');
             $table->string('state', '56')->comment('状态');
             $table->integer('user_id')->comment('创建人ID');
+            $table->dateTime('published_at')->nullable()->comment('发布时间');
             $table->timestamps();
         });
+
+        //表备注
+        DB::statement("ALTER TABLE `topics` COMMENT '社区广场表';");
     }
 
     /**

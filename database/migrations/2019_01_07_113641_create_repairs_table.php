@@ -22,8 +22,12 @@ class CreateRepairsTable extends Migration
             $table->string('address', '255')->comment('地址');
             $table->string('name', '56')->comment('用户名');
             $table->integer('user_id')->comment('创建人ID');
+            $table->dateTime('published_at')->nullable()->comment('发布时间');
             $table->timestamps();
         });
+
+        //表备注
+        DB::statement("ALTER TABLE `repairs` COMMENT '报修报事表';");
     }
 
     /**

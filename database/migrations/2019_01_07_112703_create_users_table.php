@@ -23,6 +23,9 @@ class CreateUsersTable extends Migration
             $table->string('password', '56')->nullable(true)->comment('用户密码');
             $table->timestamps();
         });
+
+        //表备注
+        DB::statement("ALTER TABLE `users` COMMENT '用户表';");
     }
 
     /**
