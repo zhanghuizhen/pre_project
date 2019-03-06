@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Announcement extends Model
+class Notice extends Model
 {
-    protected $table = 'announcements';
+    protected $table = 'notices';
 
     public $timestamps = true;
 

@@ -13,7 +13,7 @@ class CreateAnnouncementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('announcements', function (Blueprint $table) {
+        Schema::create('notices', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title', '56')->comment('标题');
             $table->string('content', '255')->comment('内容');
@@ -24,7 +24,7 @@ class CreateAnnouncementsTable extends Migration
         });
 
         //表备注
-        DB::statement("ALTER TABLE `announcements` COMMENT '小区公告表';");
+        DB::statement("ALTER TABLE `notices` COMMENT '小区公告表';");
     }
 
     /**
@@ -34,6 +34,6 @@ class CreateAnnouncementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('announcements');
+        Schema::dropIfExists('notices');
     }
 }

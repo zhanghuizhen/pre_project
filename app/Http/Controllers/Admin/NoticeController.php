@@ -11,7 +11,7 @@ use Exception;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AnnouncementController extends Controller
+class NoticeController extends Controller
 {
     //列表
     public function index(Request $request)

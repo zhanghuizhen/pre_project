@@ -76,23 +76,23 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function(){
 
 
     //公告列表
-    Route::get('announcement/index', [
-        'as' => 'announcement/index', 'uses' => 'AnnouncementController@index'
+    Route::get('notice/index', [
+        'as' => 'notice/index', 'uses' => 'NoticeController@index'
     ]);
 
     //公告创建
-    Route::post('announcement/store', [
-        'as' => 'announcement/store', 'uses' => 'AnnouncementController@store'
+    Route::post('notice/store', [
+        'as' => 'notice/store', 'uses' => 'NoticeController@store'
     ]);
 
     //公告更新
-    Route::put('announcement/update/{id}', [
-        'as' => 'announcement/update/{id}', 'uses' => 'AnnouncementController@update'
+    Route::put('notice/update/{id}', [
+        'as' => 'notice/update/{id}', 'uses' => 'NoticeController@update'
     ]);
 
     //公告删除
-    Route::delete('announcement/delete/{id}', [
-        'as' => 'announcement/delete/{id}', 'uses' => 'AnnouncementController@delete'
+    Route::delete('notice/delete/{id}', [
+        'as' => 'notice/delete/{id}', 'uses' => 'NoticeController@delete'
     ]);
 
 });
